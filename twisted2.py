@@ -1,7 +1,10 @@
+import os
 from twisted.internet import reactor, endpoints
 from twisted.web.server import Site
 from twisted.web.resource import Resource
 import time
+
+PORT = int(os.environ.get('PORT', 8080))
 
 
 class ClockPage(Resource):
@@ -14,7 +17,7 @@ class ClockPage(Resource):
 
 resource = ClockPage()
 factory = Site(resource)
-endpoint = endpoints.TCP4ServerEndpoint(reactor, 8880)
+endpoint = endpoints.TCP4ServerEndpoint(reactor, PORT)
 endpoint.listen(factory)
 reactor.run()
 
